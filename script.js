@@ -10,20 +10,25 @@ document.getElementById("client").addEventListener("click",function() {
     })
 });
 function checkAccess() {
-  let password = prompt("T có đẹp trai không? Yes or No !!!")
-    .trim()
-    .toLowerCase();
+    // Nếu đã nhập đúng trước đó, bỏ qua check
+    if (localStorage.getItem("accessGranted") === "true") {
+        return;
+    }
 
-  if (password === "yes") {
-    alert("Ok");
-    window.location.href = "https://minhkhue289.github.io/Web-5/";
-  } else if (password === null || password === "") {
-    alert("Bạn chưa nhập gì cả!");
-  } else {
-    alert("Sai rồi !!! Hãy thử lại.");
-    checkAccess();
-  }
+    let password = prompt("T có đẹp trai không? Yes or No !!!").trim().toLowerCase();
+    
+    if (password === "yes") {
+        alert("Ok");
+        localStorage.setItem("accessGranted", "true"); // Lưu vào localStorage
+        window.location.href = "https://minhkhue289.github.io/Web-5/";
+    } else if (password === null || password === "") {
+        alert("Bạn chưa nhập gì cả!");
+    } else {
+        alert("Sai rồi !!! Hãy thử lại.");
+        checkAccess();
+    }
 }
 
 // Gọi hàm khi trang load
 checkAccess();
+
